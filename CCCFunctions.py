@@ -73,3 +73,6 @@ def CCVerify(IP):
 			return response.json()["ip_address"] == IP
 		except KeyError:
 			return False
+
+if __name__ == "__main__":
+    print("This is an import-only file")
