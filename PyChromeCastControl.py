@@ -8,18 +8,18 @@ from json import dumps as JSON
 
 def doHelp(verbose):
 	PyPrintSystem.p("Displaying help dialog", 'v', verbose)
-	PyPrintSystem.p("devices\t\t\tShows the scanned devices", 'i')
-	PyPrintSystem.p("forget <\033[93;1mChromeCastIP\033[0m>\tShows a menu to forget certain WiFi networks for the specified <\033[93;1mChromeCastIP\033[0m>", 'i')
-	PyPrintSystem.p("help\t\t\tDisplays the current dialog", 'i')
-	PyPrintSystem.p("id <\033[93;1mChromeCastIP\033[0m>/all\tEnumerates certificate data from the specified <\033[93;1mChromeCastIP\033[0m>, or all ChromeCasts scanned", 'i')
-	PyPrintSystem.p("info <\033[93;1mChromeCastIP\033[0m>/all\tEnumerates general data from the specified <\033[93;1mChromeCastIP\033[0m>, or all ChromeCasts scanned", 'i')
-	PyPrintSystem.p("locale <\033[93;1mChromeCastIP\033[0m>/all\tEnumerates locale data from the specified <\033[93;1mChromeCastIP\033[0m>, or all ChromeCasts scanned", 'i')
-	PyPrintSystem.p("lan <\033[93;1mChromeCastIP\033[0m>/all\tEnumerates saved network data from the specified <\033[93;1mChromeCastIP\033[0m>, or all ChromeCasts scanned", 'i')
-	PyPrintSystem.p("reboot <\033[93;1mChromeCastIP\033[0m>/all\tReboots the specified <\033[93;1mChromeCastIP\033[0m>, or all ChromeCasts scanned", 'i')
-	PyPrintSystem.p("reset <\033[93;1mChromeCastIP\033[0m>/all\tResets the specified <\033[93;1mChromeCastIP\033[0m>, or all ChromeCasts scanned", 'i')
-	PyPrintSystem.p("scan\t\t\tScans for ChromeCast devices", 'i')
-	PyPrintSystem.p("timezone <\033[93;1mChromeCastIP\033[0m>/all\tEnumerates timezone data from the specified <\033[93;1mChromeCastIP\033[0m>, or all ChromeCasts scanned", 'i')
-	PyPrintSystem.p("quit\t\t\tExits ChromeCastControl", 'i')
+	PyPrintSystem.p("devices\t\t\tShows the scanned devices")
+	PyPrintSystem.p("forget <\033[93;1mChromeCastIP\033[0m>\tShows a menu to forget certain WiFi networks for the specified <\033[93;1mChromeCastIP\033[0m>")
+	PyPrintSystem.p("help\t\t\tDisplays the current dialog")
+	PyPrintSystem.p("id <\033[93;1mChromeCastIP\033[0m>/all\tEnumerates certificate data from the specified <\033[93;1mChromeCastIP\033[0m>, or all ChromeCasts scanned")
+	PyPrintSystem.p("info <\033[93;1mChromeCastIP\033[0m>/all\tEnumerates general data from the specified <\033[93;1mChromeCastIP\033[0m>, or all ChromeCasts scanned")
+	PyPrintSystem.p("locale <\033[93;1mChromeCastIP\033[0m>/all\tEnumerates locale data from the specified <\033[93;1mChromeCastIP\033[0m>, or all ChromeCasts scanned")
+	PyPrintSystem.p("lan <\033[93;1mChromeCastIP\033[0m>/all\tEnumerates saved network data from the specified <\033[93;1mChromeCastIP\033[0m>, or all ChromeCasts scanned")
+	PyPrintSystem.p("reboot <\033[93;1mChromeCastIP\033[0m>/all\tReboots the specified <\033[93;1mChromeCastIP\033[0m>, or all ChromeCasts scanned")
+	PyPrintSystem.p("reset <\033[93;1mChromeCastIP\033[0m>/all\tResets the specified <\033[93;1mChromeCastIP\033[0m>, or all ChromeCasts scanned")
+	PyPrintSystem.p("scan\t\t\tScans for ChromeCast devices")
+	PyPrintSystem.p("timezone <\033[93;1mChromeCastIP\033[0m>/all\tEnumerates timezone data from the specified <\033[93;1mChromeCastIP\033[0m>, or all ChromeCasts scanned")
+	PyPrintSystem.p("quit\t\t\tExits ChromeCastControl")
 	PyPrintSystem.p("verbose\t\t\tShows cools messages like this! Currently: '\033[93;1m" + str(verbose) + "\033[90;2m'", 'v', True)
 	PyPrintSystem.p("wifi <\033[93;1mChromeCastIP\033[0m>/all\tEnumerates all WiFi netoworks from the specified <\033[93;1mChromeCastIP\033[0m>, or all ChromeCasts scanned", 'p')
 
@@ -35,7 +35,7 @@ def multiDeviceHandler(CCDevices, command, arguments, type, verbose):
 			else:
 				PyPrintSystem.p("Action: " + type, 'v', verbose)
 				for IP in [i[0] for i in CCDevices]:
-					PyPrintSystem.p(IP + ":", 'i')
+					PyPrintSystem.p(IP + ":")
 					if type == "id":
 						for i in highlight(JSON(CCCFunctions.CCID(IP), indent=2, sort_keys=True), lexers.JsonLexer(), formatters.TerminalFormatter()).splitlines():
 							PyPrintSystem.p(i, 's')
@@ -128,11 +128,11 @@ CCDevices = []
 selectedMenuItem = -1
 
 PyPrintSystem.doHeart("Welcome, " + user() + ", to ChromeCastControl!")
-PyPrintSystem.p("Try '\033[93;1mhelp\033[0m' for a list of commands", 'i')
+PyPrintSystem.p("Try '\033[93;1mhelp\033[0m' for a list of commands")
 
 while True:
 	try:
-		userInput = PyPrintSystem.i("CCC> ", 'i')
+		userInput = PyPrintSystem.i("CCC> ")
 	except KeyboardInterrupt:
 		PyPrintSystem.p("KeyboardInterupt detected, closing CCC", 'v', verbose)
 		quitCCC(verbose, 1)
@@ -170,7 +170,7 @@ while True:
 
 				while selectedMenuItem not in range(0, len(savedNetworkArray)):
 					PyPrintSystem.p("Not a valid selection: " + str(selectedMenuItem), 'v', verbose)
-					selectedMenuItem = int(PyPrintSystem.i("CCC>Forget> ", 'i'))
+					selectedMenuItem = int(PyPrintSystem.i("CCC>Forget> "))
 
 				PyPrintSystem.p("Forgetting WiFi network: " + savedNetworkArray[selectedMenuItem]["ssid"], 'v', verbose)
 				CCCFunctions.CCForgetWiFi(arguments[0], str(savedNetworkArray[selectedMenuItem]["wpa_id"]))
@@ -224,7 +224,7 @@ while True:
 			multiDeviceHandler(CCDevices, command, arguments, "timezone", verbose)
 
 		elif command in [i for i in commands if i[0] == "verbose"][0]:
-			PyPrintSystem.p("Toggling verbose (" + str(verbose) + " -> " + str(toggleVerbose(verbose)) + ")", 'i')
+			PyPrintSystem.p("Toggling verbose (" + str(verbose) + " -> " + str(toggleVerbose(verbose)) + ")")
 			verbose = toggleVerbose(verbose)
 
 		elif command in [i for i in commands if i[0] == "wifi"][0]:
